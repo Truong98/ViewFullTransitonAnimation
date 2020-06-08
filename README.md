@@ -1,5 +1,18 @@
 # ViewFullTransition
 
+<table>
+<tr>
+<th>Zalo/Telegrame View Full</th>
+<th>BottomSheet</th>
+<th>Web View Facebook</th>
+</tr>
+<tr>
+<td><img src="https://github.com/Truong98/ViewFullTransitonAnimation/blob/master/DemoGif/Viewfull.gif"/></td>
+<td><img src="https://github.com/Truong98/ViewFullTransitonAnimation/blob/master/DemoGif/BottomSheet.gif"/></td>
+<td><img src="https://github.com/Truong98/ViewFullTransitonAnimation/blob/master/DemoGif/Web%20view.gif"/></td>
+</tr>
+</table>
+
 ## Example
 
 To run the example project, clone the repo, and start  in Xcode.
@@ -15,11 +28,18 @@ To run the example project, clone the repo, and start  in Xcode.
 Import the `ViewFullTransition` folder where you want to use it.
 
 ```swift
+/// Create new UIViewController
  let viewFullVC = WebViewFullVC()
+ 
  let effectColor = UIColor.black
+ 
+ // Create Params to pass in 'ViewFullTransitionController'
  var params = ParamsViewFullTransition(sourceViewController: self)
+ 
+ /// Set destViewController in params is viewFullVC (line 32)
  params.destViewController = viewFullVC
  
+ /// Set duration present animation
  params.presentParams.duration = 0.5
  
  params.dismissParams.duration = 0.5
@@ -28,9 +48,13 @@ Import the `ViewFullTransition` folder where you want to use it.
  params.dismissParams.interactiveDirection = .Down
  params.dismissParams.yAxisInteractivecompletionThreshold = 0.4
  
+ /// Create present animator to handle present transition event
  let presentAnimator = VFPresentAnimator(sourceTransition: self, viewFullTransition: viewFullVC)
+ /// We need to set startState and endState
  presentAnimator.startState = VFAnimatedState(effectColor: effectColor, effectAlpha: 0)
  presentAnimator.endState = VFAnimatedState(effectColor: effectColor, effectAlpha: 1)
+ 
+ /// Pass presentAnimator in params
  params.presentAnimator = presentAnimator
 
  let interactionAnimator = VFDismissalInteractionAnimator(sourceTransition: self, viewFullTransition: viewFullVC)
@@ -45,6 +69,7 @@ Import the `ViewFullTransition` folder where you want to use it.
  dismissAnimator.endState = VFAnimatedState(effectColor: effectColor, effectAlpha: 0)
  params.dismissAnimator = dismissAnimator
 
+/// Create ViewFullTransitionController that conform 'UIViewControllerTransitioningDelegate'
  viewFullTransition = ViewFullTransitionController(params: params)
 
  viewFullVC.transitioningDelegate = viewFullTransition
@@ -55,8 +80,7 @@ Import the `ViewFullTransition` folder where you want to use it.
 
 ### Customization
 
-Most of the built-in animators work best in **Paging** mode and they have additional parameters that you can tweak for better transitions.
-You can also write your own animators by implementing the protocol `LayoutAttributesAnimator`.
+
 
 ## Author
 
